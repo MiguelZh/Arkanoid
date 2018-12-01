@@ -13,11 +13,12 @@ private:
 	Block *** blocks = nullptr;
 	uint numBloques, puntos = 0, puntosAnt = 0;
 public:
-	BlocksMap( uint w, uint h,Vector2D coord, Texture * t):
-		  ArkanoidObject(w,h,coord,t) {}
+	BlocksMap( uint w, uint h, Texture * t):
+		ArkanoidObject(w, h, {0,0}, t) {}
 	~BlocksMap();
-	void LeerFichero(string filename,Texture * texture);
+	void LeerFichero(string filename);
 	void render() const;
+	bool detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel);
 	Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
 	Block* BlocksMap::blockAt(const Vector2D& p);
 	void ballHitBlock(Block * bloque);

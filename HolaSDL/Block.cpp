@@ -30,3 +30,6 @@ void Block::render() const { // solo lee no cambia nada
 	}
 	//void renderFrame(const SDL_Rect& destRect, int row, int col, int angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE) const;
 }
+void Block::update() {
+
+}

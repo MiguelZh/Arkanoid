@@ -37,7 +37,7 @@ private:
 	bool gameOver = false;
 	bool win = false;
 	Texture* textures[NUM_TEXTURES];
-	string niveles[3] = { "..//maps//level02.ark","..//maps//level02.ark","..//maps//level03.ark" };
+	string niveles[3] = { "..//maps//level01.ark","..//maps//level02.ark","..//maps//level03.ark" };
 
 public:
 	Game();

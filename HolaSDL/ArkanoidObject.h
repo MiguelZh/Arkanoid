@@ -6,13 +6,14 @@
 class ArkanoidObject: public GameObject
 {
 public:
+	ArkanoidObject(){}
 	ArkanoidObject(uint width,uint height, Vector2D coord , Texture * t):
 		w(width),h(height),coord(coord),textura(t){}
 	~ArkanoidObject();
-	virtual void loadFromFile(string filename){}
-	virtual void saveToFile(){}
+	virtual void loadFromFile(string filename);
+	virtual void saveToFile();
 	void render();
-	SDL_Rect  getRect(){}
+	SDL_Rect getRect();
 	uint getW() { return w; }
 	uint getH() { return h; }
 	uint getX() { return coord.getX(); }

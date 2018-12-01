@@ -18,7 +18,6 @@ Game::Game() {
 
 
 	string nombre [5]= {"ball","bricks","paddle","topside","side"}; // nombre de las imagenes
-	try {
 		for (uint i = 0; i < NUM_TEXTURES; i++) // array strings direcciones
 		{
 			textures[i] = new Texture(renderer); //
@@ -32,32 +31,33 @@ Game::Game() {
 			}
 			
 		}
-	}
-	catch(exception e){
-		throw e.what(); }
-
-
 	// WallTop
 	double x= 0, y=0;
 	Vector2D vectorWallTop(x, y);
-	wallTop = new Wall(textures[3],vectorWallTop, WIN_WIDTH,15);
+	//wallTop = new Wall(textures[3],vectorWallTop, WIN_WIDTH,15);
+	wallTop = new Wall(WIN_WIDTH, 15, vectorWallTop, textures[3], "Top");
 	//WallDer
-	wallDer = new Wall(textures[4], vectorWallTop, 15, WIN_HEIGHT);
+	//wallDer = new Wall(textures[4], vectorWallTop, 15, WIN_HEIGHT);
+	wallDer = new Wall(15, WIN_HEIGHT, vectorWallTop, textures[4], "Right");
 	//WallIzq
 	double xIzq = WIN_WIDTH-18, yIzq = 0;
 	Vector2D vectorWallIzq(xIzq, yIzq);
-	wallIzq = new Wall(textures[4], vectorWallIzq, 15, WIN_HEIGHT);
+	//wallIzq = new Wall(textures[4], vectorWallIzq, 15, WIN_HEIGHT);
+	wallIzq = new Wall(15, WIN_HEIGHT, vectorWallIzq, textures[4], "Left");
 	//paddle
 	double xP = 370, yP = 550;
 	Vector2D vectorPaddle(xP, yP);
-	paddle = new Paddle(textures[2], vectorPaddle, 70, 20);
+	//paddle = new Paddle(textures[2], vectorPaddle, 70, 20);
+	paddle = new Paddle(75, 15, vectorPaddle, textures[2], velocidad);
 	//bola
 	double xB = 390, yB = 500;
 	Vector2D vectorBola(xB, yB);
-	bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
+	//bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
+	bola = new Ball(20, 20, vectorBola, textures[0], velocidad, this);
 	//blocksmap
-	mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
-	mapa->LeerFichero(niveles[0], textures[1]);
+	//mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
+	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[1]);
+	mapa->LeerFichero(niveles[0]);
 	
 }
 
@@ -90,7 +90,7 @@ void Game::update() {
 	bola->update();
 	bola->resetBall();
 	if (mapa->pasoNivel()&& i<=2) {
-		mapa->LeerFichero(niveles[i], textures[1]);
+		mapa->LeerFichero(niveles[i]);
 		bola->nuevoNv();
 		i++;
 	}
@@ -116,43 +116,12 @@ void Game::handleEvents() {
 	}
 }
 bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
-	/*Block * block;	
-	block = mapa->collides(destRect, vel, collVector);
-	if (block != nullptr) {
-		if (block->getColor() != 0) {
-			mapa->ballHitBlock(block);
-			mapa->puntuacion();
-			return true;
-		}
-	}*/
-	if (SDL_HasIntersection(&destRect, mapa->getDestRect())) {
-		Block* block = mapa->collides(destRect, vel, collVector);
-		if (block != nullptr) {
-			if (block->getColor() != 0) {
-				mapa->ballHitBlock(block);
-				mapa->puntuacion();
-				return true;
-			}
-		}
-	}
 
-	if (SDL_HasIntersection(&destRect, wallDer->getDestRect())) {
-		collVector = Vector2D(-1, 0);
+	if(mapa->detectCollision(destRect,collVector,vel)) return true;
+	if (wallDer->collides(destRect, collVector)) return true;
+	if (wallIzq->collides(destRect, collVector)) return true;
+	if (wallTop->collides(destRect, collVector)) return true;
+	if (paddle->collides(destRect, collVector)) return true;
 
-		return true;
-	}
-	if (SDL_HasIntersection(&destRect, wallIzq->getDestRect())) {
-		collVector = Vector2D(1, 0);
-		return true;
-	}
-	if (SDL_HasIntersection(&destRect, wallTop->getDestRect())) {
-		collVector = Vector2D(0,1);
-		return true;
-	}
-	if (SDL_HasIntersection(&destRect, paddle->getDestRect())) {
-		collVector = paddle->ballhitPaddle(&destRect);
-		return true;
-	}
-	
 	return false;
 }

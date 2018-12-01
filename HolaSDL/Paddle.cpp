@@ -27,7 +27,7 @@ using namespace std;
  }
  void Paddle::modificaPos(int num,bool dir) {
 	 int aux = velocidad.getX();
-	 velocidad = { num,0 };
+	 velocidad = {(double)num,0 };
 	 if (dir && aux+num<710)
 	 {
 		 coord = coord + velocidad;
@@ -40,7 +40,9 @@ using namespace std;
  bool Paddle::collides(const SDL_Rect destRect, Vector2D &collVector) {
 	 if (SDL_HasIntersection(&destRect, &getRect())) {
 		 collVector = ballhitPaddle(&destRect);
+		 return true;
 	 }
+	 else return false;
  }
  Vector2D Paddle::ballhitPaddle(const SDL_Rect * ballrect) {
 	 Vector2D vectorCol;

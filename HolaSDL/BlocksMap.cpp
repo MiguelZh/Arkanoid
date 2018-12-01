@@ -10,7 +10,7 @@
 using namespace std;
 
 int fila = 0, columna = 0;
-void BlocksMap::LeerFichero(string filename ,Texture * texture) {
+void BlocksMap::LeerFichero(string filename) {
 	ifstream lectura; uint color; // x e y(filas y columnas)
 	lectura.open(filename);
 	if (!lectura.is_open()) throw "No existe el fichero";
@@ -33,7 +33,7 @@ void BlocksMap::LeerFichero(string filename ,Texture * texture) {
 				Vector2D pos(margen + j * cellWAux, margen + i * cellH);
 				//cellWAux += cellW;
 				lectura >> color;
-				blocks[j][i] = new Block(color, cellW, cellH, pos, texture, i, j);
+				blocks[j][i] = new Block(color, cellW, cellH, pos, textura, i, j);
 				if (color != 0)
 					numBloques++;
 			}
@@ -124,7 +124,19 @@ Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Ve
 	}
 	return b;
 }
+bool BlocksMap::detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
+	if (SDL_HasIntersection(&destRect, &getRect())) {
+		Block* block = collides(destRect, vel, collVector);
+		if (block != nullptr) {
+			if (block->getColor() != 0) {
+				ballHitBlock(block);
+				puntuacion();
+				return true;
+			}
+		}
+	}
 
+}
 
  /* Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.
 	En caso de no haber bloque en ese punto (incluido el caso de que p esté fuera
