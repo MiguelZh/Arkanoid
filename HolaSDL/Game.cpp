@@ -1,0 +1,158 @@
+
+#include "SDL.h"
+#include "SDL_image.h"
+#include "checkML.h"
+#include <iostream>
+#include "Game.h"
+
+
+
+using namespace std;
+Game::Game() {
+	
+	SDL_Init(SDL_INIT_EVERYTHING);
+	window = SDL_CreateWindow("Hola", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
+
+
+	string nombre [5]= {"ball","bricks","paddle","topside","side"}; // nombre de las imagenes
+	try {
+		for (uint i = 0; i < NUM_TEXTURES; i++) // array strings direcciones
+		{
+			textures[i] = new Texture(renderer); //
+			try
+			{
+				textures[i]->load("..//images//" + nombre[i] + ".png");
+			}
+			catch (string s) {
+				s = "no se encontro la imagen";
+				throw s;
+			}
+			
+		}
+	}
+	catch(exception e){
+		throw e.what(); }
+
+
+	// WallTop
+	double x= 0, y=0;
+	Vector2D vectorWallTop(x, y);
+	wallTop = new Wall(textures[3],vectorWallTop, WIN_WIDTH,15);
+	//WallDer
+	wallDer = new Wall(textures[4], vectorWallTop, 15, WIN_HEIGHT);
+	//WallIzq
+	double xIzq = WIN_WIDTH-18, yIzq = 0;
+	Vector2D vectorWallIzq(xIzq, yIzq);
+	wallIzq = new Wall(textures[4], vectorWallIzq, 15, WIN_HEIGHT);
+	//paddle
+	double xP = 370, yP = 550;
+	Vector2D vectorPaddle(xP, yP);
+	paddle = new Paddle(textures[2], vectorPaddle, 70, 20);
+	//bola
+	double xB = 390, yB = 500;
+	Vector2D vectorBola(xB, yB);
+	bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
+	//blocksmap
+	mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
+	mapa->LeerFichero(niveles[0], textures[1]);
+	
+}
+
+Game::~Game() {
+	for (uint i = 0; i < NUM_TEXTURES; i++) { delete textures[i]; }
+	delete wallTop;delete wallDer;delete wallIzq;
+	delete paddle;
+	delete bola;
+	delete mapa;
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+}
+
+void Game::run() {
+	velocidad.normalize();
+	while (!exit) {
+		uint start = SDL_GetTicks();
+		handleEvents();
+		update();
+		render();
+		uint frameTime = SDL_GetTicks() - start;
+		if (frameTime < FRAME_RATE)
+			SDL_Delay(FRAME_RATE - frameTime);
+	}
+}
+
+void Game::update() {
+	int i= 1;
+	bola->update();
+	bola->resetBall();
+	if (mapa->pasoNivel()&& i<=2) {
+		mapa->LeerFichero(niveles[i], textures[1]);
+		bola->nuevoNv();
+		i++;
+	}
+}
+
+void Game::render() const {
+	SDL_RenderClear(renderer);
+	wallTop->render();
+	wallDer->render();
+	wallIzq->render();
+	paddle->render();
+	bola->render();
+	mapa->render();
+	SDL_RenderPresent(renderer);
+	
+}
+
+void Game::handleEvents() {
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !exit) {
+		if (event.type == SDL_QUIT) exit = true;
+		paddle->handleEvents(event);
+	}
+}
+bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
+	/*Block * block;	
+	block = mapa->collides(destRect, vel, collVector);
+	if (block != nullptr) {
+		if (block->getColor() != 0) {
+			mapa->ballHitBlock(block);
+			mapa->puntuacion();
+			return true;
+		}
+	}*/
+	if (SDL_HasIntersection(&destRect, mapa->getDestRect())) {
+		Block* block = mapa->collides(destRect, vel, collVector);
+		if (block != nullptr) {
+			if (block->getColor() != 0) {
+				mapa->ballHitBlock(block);
+				mapa->puntuacion();
+				return true;
+			}
+		}
+	}
+
+	if (SDL_HasIntersection(&destRect, wallDer->getDestRect())) {
+		collVector = Vector2D(-1, 0);
+
+		return true;
+	}
+	if (SDL_HasIntersection(&destRect, wallIzq->getDestRect())) {
+		collVector = Vector2D(1, 0);
+		return true;
+	}
+	if (SDL_HasIntersection(&destRect, wallTop->getDestRect())) {
+		collVector = Vector2D(0,1);
+		return true;
+	}
+	if (SDL_HasIntersection(&destRect, paddle->getDestRect())) {
+		collVector = paddle->ballhitPaddle(&destRect);
+		return true;
+	}
+	
+	return false;
+}

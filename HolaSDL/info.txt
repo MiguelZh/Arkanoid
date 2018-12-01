@@ -1,0 +1,10 @@
+ALVAR JULIAN DE DIEGO LOPEZ
+MIGUEL ZHEFAN YE YE
+
+Extra: 
+-cambio de niveles
+
+Funcionamiento incorrecto: 
+-no hemos implementado el "rebote modular" del paddle
+-al leer el archivo creamos los bloques con color 0, aunque luego se tienen en cuenta en el Game::collides
+-el nivel 2 crashea
