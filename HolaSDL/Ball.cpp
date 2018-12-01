@@ -12,7 +12,7 @@ void Ball::update() {
 	//coord = coord + vel;
 	Vector2D collVector;
 	SDL_Rect destRect = getRect();
-	if (game->collides(destRect, collVector, vel)) {
+	if (game->collides(destRect, collVector, vel)) { // llama al collides del game
 
 		vel.normalize(); collVector.normalize();
 
@@ -23,11 +23,9 @@ void Ball::update() {
 void Ball::resetBall() {
 	if (coord.getY() > 570 && vidas >0) {
 		coord = { 390,450 };
-		//vel = { 0.2,0.2 };
 		vidas--;
 	}
 }
 void Ball::nuevoNv() {
 	coord = { 390,450 };
-	//vel = { 0.02,0.02 };
 }
