@@ -22,20 +22,18 @@ using namespace std;
 			 default: modificaPos(0,true);
 				 break;
 			 }
-		 }
-	 
+		 }	 
  }
  void Paddle::modificaPos(int num,bool dir) {
-	 int aux = velocidad.getX();
 	 velocidad = {(double)num,0 };
-	 if (dir && aux+num<710)
+	 if (dir &&coord.getX()<710)
 	 {
 		 coord = coord + velocidad;
 	 }
-	 else if (!dir &&(aux - num) >10 ) {
+	 else if (!dir &&coord.getX() >10 ) {
 		 coord = coord - velocidad;
 	 }
-	 else  coord = Vector2D(coord.getX(), coord.getY());
+	 else  coord = coord;
  }
  bool Paddle::collides(const SDL_Rect destRect, Vector2D &collVector) {
 	 if (SDL_HasIntersection(&destRect, &getRect())) {
