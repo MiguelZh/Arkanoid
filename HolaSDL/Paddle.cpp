@@ -14,10 +14,10 @@ using namespace std;
 			 switch (E.key.keysym.sym)
 			 {
 			 case SDLK_RIGHT:
-				 modificaPos(30,true);
+				 modificaPos(20,true);
 				 break;
 			 case SDLK_LEFT:
-				 modificaPos(30,false);
+				 modificaPos(20,false);
 				 break;
 			 default: modificaPos(0,true);
 				 break;
@@ -44,7 +44,7 @@ using namespace std;
  }
  Vector2D Paddle::ballhitPaddle(const SDL_Rect * ballrect) {
 	 Vector2D vectorCol;
-	 uint BallCenter = ballrect->x + ballrect->w / 2;
+	 uint BallCenter = ballrect->x + (ballrect->w / 2);
 	 uint parte = getW() / 6; // paddle dividido en 6 trozos
 	 if (BallCenter > coord.getX() && BallCenter < coord.getX() + parte) { // 1/6 del paddle izquierda
 		 vectorCol = Vector2D(4,10);

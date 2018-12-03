@@ -12,13 +12,14 @@ void Ball::update() {
 	//coord = coord + vel;
 	Vector2D collVector;
 	SDL_Rect destRect = getRect();
-	if (game->collides(destRect, collVector, vel)) { // llama al collides del game
+	coord = coord + velocidad;
+	if (game->collides(destRect, collVector, velocidad)) { // llama al collides del game
 
-		vel.normalize(); collVector.normalize();
+		velocidad.normalize();
 
-		vel = vel - (collVector*(2 * (vel*collVector)));	
+		velocidad = velocidad - (collVector*(2 * (velocidad*collVector)));	
 	}
-	coord = coord + vel;
+
 }
 void Ball::resetBall() {
 	if (coord.getY() > 570 && vidas >0) {

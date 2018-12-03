@@ -37,13 +37,11 @@ Game::Game() {
 	//wallTop = new Wall(textures[3],vectorWallTop, WIN_WIDTH,15);
 	wallTop = new Wall(WIN_WIDTH, 15, vectorWallTop, textures[3], "Top");
 	//WallDer
-	//wallDer = new Wall(textures[4], vectorWallTop, 15, WIN_HEIGHT);
-	wallDer = new Wall(15, WIN_HEIGHT, vectorWallTop, textures[4], "Right");
-	//WallIzq
-	double xIzq = WIN_WIDTH-18, yIzq = 0;
+	double xIzq = WIN_WIDTH - 18, yIzq = 0;
 	Vector2D vectorWallIzq(xIzq, yIzq);
-	//wallIzq = new Wall(textures[4], vectorWallIzq, 15, WIN_HEIGHT);
-	wallIzq = new Wall(15, WIN_HEIGHT, vectorWallIzq, textures[4], "Left");
+	wallDer = new Wall(15, WIN_HEIGHT, vectorWallIzq, textures[4], "Left");
+	//WallIzq
+	wallIzq = new Wall(15, WIN_HEIGHT, vectorWallTop, textures[4], "Right");
 	//paddle
 	double xP = 370, yP = 550;
 	Vector2D vectorPaddle(xP, yP);

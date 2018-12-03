@@ -9,7 +9,7 @@
 class Game;
 class Ball : public MovingObject{
 private:
-	Game * game; Vector2D coord; Vector2D vel; uint ancho = 0; uint alto = 0; Texture * textura = nullptr; int vidas = 3;
+	Game * game; int vidas = 3;
 public:
 	Ball(uint ancho, uint alto,Vector2D coord, Texture * textura, Vector2D vel, Game * g) :
 		MovingObject(ancho,alto,coord,textura,vel), game(g) {}

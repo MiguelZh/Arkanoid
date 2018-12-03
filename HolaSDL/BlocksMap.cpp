@@ -25,8 +25,8 @@ void BlocksMap::LeerFichero(string filename) {
 			blocks[t] = new Block*[fila];
 		}
 		//para colocarlo
-		uint margen = 20; // margen a ambos lados 
-		int cellW = (w - margen) / (columna), cellH = w /20; int cellWAux = cellW; // tamaño fijo de las celdas, depende de la anchura del mapa
+		uint margen = 25; // margen a ambos lados 
+		int cellW = w/columna-margen, cellH = w /20; int cellWAux = cellW; // tamaño fijo de las celdas, depende de la anchura del mapa
 		for (uint i = 0; i < fila; i++) {
 			for (uint j = 0; j < columna; j++) {
 
