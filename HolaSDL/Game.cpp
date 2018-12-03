@@ -83,7 +83,6 @@ void Game::run() {
 void Game::update() {
 	int i= 1;
 	bola->update();
-	bola->resetBall();
 	if (mapa->pasoNivel()&& i<=2) {
 		mapa->LeerFichero(niveles[i]);
 		bola->nuevoNv();

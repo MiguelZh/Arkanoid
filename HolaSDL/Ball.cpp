@@ -8,8 +8,7 @@
 
 
 void Ball::update() {
-	
-	//coord = coord + vel;
+	Vector2D prevPos = coord;	
 	Vector2D collVector;
 	SDL_Rect destRect = getRect();
 	coord = coord + velocidad;
@@ -17,15 +16,18 @@ void Ball::update() {
 
 		velocidad.normalize();
 
-		velocidad = velocidad - (collVector*(2 * (velocidad*collVector)));	
+		velocidad = velocidad - (collVector * (2 * (velocidad*collVector)));	
+		coord = prevPos + velocidad;
+	}
+	if (coord.getY() > 600 && vidas > 0)
+	{
+		resetBall();
 	}
 
 }
 void Ball::resetBall() {
-	if (coord.getY() > 570 && vidas >0) {
 		coord = { 390,450 };
 		vidas--;
-	}
 }
 void Ball::nuevoNv() {
 	coord = { 390,450 };
