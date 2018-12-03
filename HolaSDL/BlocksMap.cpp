@@ -124,11 +124,12 @@ Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Ve
 	}
 	return b;
 }
-bool BlocksMap::detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
+bool BlocksMap::detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel,Game * g) {
 	if (SDL_HasIntersection(&destRect, &getRect())) {
 		Block* block = collides(destRect, vel, collVector);
 		if (block != nullptr) {
 			if (block->getColor() != 0) {
+				g->spawnReward(coord); // poner random aqui
 				ballHitBlock(block);
 				puntuacion();
 				return true;
@@ -143,21 +144,7 @@ bool BlocksMap::detectCollision(const SDL_Rect destRect, Vector2D &collVector, c
 	del espacio del mapa) devuelve nullptr. */
 
 Block* BlocksMap::blockAt(const Vector2D& p) {
-	/*
-	if (p.getX()>100 && p.getX()<100+mapaW && p.getY()>25 && p.getY()<25+mapaH){
 
-		int i = 0;
-		int j = 0;
-
-		int blockH = mapaH / fila;
-		int blockW = mapaW / columna;
-
-		i = (p.getY()-40) / blockH;
-		j = (p.getX()-100) / blockW;
-
-		return blocks[j][i];
-	}
-	*/
 	for (int i = 0; i < fila; i++) {
 		for (int j = 0; j < columna; j++) {
 			if (blocks[j][i] != nullptr) {

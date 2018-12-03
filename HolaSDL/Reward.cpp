@@ -11,5 +11,28 @@ bool Reward::collides(const SDL_Rect destRect) {
 	else return false;
 }
 void Reward::render() {
+	if (tiempo < velocidadAnim) {
+		Frame++;
+		tiempo = 0;
+		if (Frame == 7) {
+			Frame = 0;
+		}
+		renderFrame(tp, Frame);
+	}
+}
+void Reward::update() {
 
+}
+void Reward::Tipo(uint type) {
+	switch (type)
+	{
+	case 0: // nuevo nv
+		break;
+	case 1: // alargar
+		break;
+	case 3: // acortar
+		break;
+	case 4: // vida++
+		break;
+	}
 }

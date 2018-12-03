@@ -5,9 +5,9 @@
 #include "Texture.h"
 #include <iostream>
 #include "ArkanoidObject.h"
+#include "Game.h"
 
 using namespace std;
-
 class BlocksMap:public ArkanoidObject{
 private:
 	Block *** blocks = nullptr;
@@ -18,7 +18,7 @@ public:
 	~BlocksMap();
 	void LeerFichero(string filename);
 	void render() const;
-	bool detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel);
+	bool detectCollision(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel,Game * g);
 	Block* BlocksMap::collides(const SDL_Rect& ballRect, const Vector2D& ballVel, Vector2D& collVector);
 	Block* BlocksMap::blockAt(const Vector2D& p);
 	void ballHitBlock(Block * bloque);
