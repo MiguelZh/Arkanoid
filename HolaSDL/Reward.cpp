@@ -10,3 +10,6 @@ bool Reward::collides(const SDL_Rect destRect) {
 	}
 	else return false;
 }
+void Reward::render() {
+
+}

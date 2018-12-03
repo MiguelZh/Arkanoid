@@ -9,6 +9,6 @@ public:
 		ArkanoidObject(width,height,coord,t),velocidad(vel){}
 	~MovingObject(){}
 
-	void loadFromFile() {}
-	void saveToFile(){} // guardan y cargan velocidad
+	void loadFromFile(ifstream& file);
+	void saveToFile(ofstream& file); // guardan y cargan velocidad
 };

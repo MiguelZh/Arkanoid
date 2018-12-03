@@ -17,7 +17,7 @@ Game::Game() {
 	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
 
-	string nombre [5]= {"ball","bricks","paddle","topside","side"}; // nombre de las imagenes
+	string nombre [7]= {"ball","bricks","paddle","topside","side","rewards","ArkanoidAll"}; // nombre de las imagenes
 		for (uint i = 0; i < NUM_TEXTURES; i++) // array strings direcciones
 		{
 			textures[i] = new Texture(renderer); //
@@ -49,6 +49,8 @@ Game::Game() {
 	Vector2D vectorBola(xB, yB);
 	//bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
 	bola = new Ball(20, 20, vectorBola, textures[0], velocidad, this);
+	//reward 
+
 	//blocksmap
 	//mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
 	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[1]);

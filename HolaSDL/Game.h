@@ -11,6 +11,7 @@
 #include "Texture.h"
 #include "Vector2D.h"
 #include "Wall.h"
+#include"Reward.h"
 
 #include <string>
 
@@ -20,7 +21,7 @@ typedef unsigned int uint;
 
 const uint WIN_WIDTH = 800;
 const uint WIN_HEIGHT = 600;
-const uint NUM_TEXTURES = 5;
+const uint NUM_TEXTURES = 7;
 const uint FRAME_RATE = 6;
 
 class Game {
@@ -33,6 +34,7 @@ private:
 	BlocksMap * mapa = nullptr;
 	Paddle * paddle = nullptr;
 	Wall * wallTop = nullptr,* wallDer = nullptr,* wallIzq = nullptr;
+	Reward * reward = nullptr;
 	bool exit = false;
 	bool gameOver = false;
 	bool win = false;

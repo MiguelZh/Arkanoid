@@ -14,9 +14,20 @@ void ArkanoidObject::render() {
 	SDL_Rect destRect = getRect();
 	textura->render(destRect, SDL_FLIP_NONE);
 }
-void ArkanoidObject::loadFromFile(string filename) {
-
+void ArkanoidObject::renderFrame(uint row,uint col) {
+	SDL_Rect destRect = getRect();
+	textura->renderFrame(destRect,row ,col, 0, SDL_FLIP_NONE);
 }
-void ArkanoidObject::saveToFile() {
-
+void ArkanoidObject::loadFromFile(ifstream& file) {
+	int x, y, width, height;
+	file >> x >> y >> width >> height;
+	coord = Vector2D(x, y);
+	w = width;
+	h = height;
+}
+void ArkanoidObject::saveToFile(ofstream& file) {
+	file << coord.getX() << " ";
+	file << coord.getY() << " ";
+	file << w << " ";
+	file << h << endl;
 }
