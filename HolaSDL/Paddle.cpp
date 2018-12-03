@@ -46,7 +46,7 @@ using namespace std;
 	 Vector2D vectorCol;
 	 uint BallCenter = ballrect->x + (ballrect->w / 2);
 	 uint parte = getW() / 6; // paddle dividido en 6 trozos
-	 if (BallCenter > coord.getX() && BallCenter < coord.getX() + parte) { // 1/6 del paddle izquierda
+	/* if (BallCenter > coord.getX() && BallCenter < coord.getX() + parte) { // 1/6 del paddle izquierda
 		 vectorCol = Vector2D(4,10);
 	 }
 	 if (BallCenter > coord.getX() + parte && BallCenter < coord.getX() + parte * 2) {
@@ -61,6 +61,7 @@ using namespace std;
 	 if (BallCenter > coord.getX() + parte * 5 && BallCenter < coord.getX() + getW()) {
 		 vectorCol = Vector2D(-4, 10);
 	 }
-	 vectorCol.normalize();
+	 vectorCol.normalize();*/
+	 vectorCol = { 0,-1 };
 	 return vectorCol;
  }
