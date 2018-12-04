@@ -23,6 +23,26 @@ using namespace std;
 				 break;
 			 }
 		 }	 
+		 /*
+		 velocidad = {0,0};
+		  if (E.type == SDL_KEYDOWN) {
+			 switch (E.key.keysym.sym)
+			 {
+			 case SDLK_RIGHT:
+				  velocidad = {4,0 };
+				 break;
+			 case SDLK_LEFT:
+				  velocidad = {-4,0 };
+			 }
+		 }
+		  if (E.type == SDL_KEYUP) {
+			 switch (E.key.keysym.sym)
+			 {
+			 default:velocidad = {0,0};
+				 break;
+			 }
+		 }
+		 */
  }
  void Paddle::modificaPos(int num,bool dir) {
 	 velocidad = {(double)num,0 };
@@ -34,6 +54,11 @@ using namespace std;
 		 coord = coord - velocidad;
 	 }
 	 else  coord = coord;
+	 /*
+	 if(coord.getX() >20 && coord.getX() < 780){
+		coord = coord + velocidad; // bug, no se sabe el porque
+	 }
+	 */
  }
  bool Paddle::collides(const SDL_Rect destRect, Vector2D &collVector) {
 	 if (SDL_HasIntersection(&destRect, &getRect())) {
