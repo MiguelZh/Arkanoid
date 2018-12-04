@@ -21,10 +21,12 @@ private:
 	SDL_Rect loadButtonRect;
 	Texture * loadTexture = nullptr;
 	bool exit = false;
+	Texture* textures[4];
 public:
-	~Menu();
+	~Menu(){}
 	Menu();
 	void render();
 	void update();
 	void handleEvents();
+	void run();
 };
