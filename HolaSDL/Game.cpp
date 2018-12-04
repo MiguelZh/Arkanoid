@@ -109,15 +109,19 @@ bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2
 	if (wallIzq->collides(destRect, collVector)) return true;
 	if (wallTop->collides(destRect, collVector)) return true;
 	if (paddle->collides(destRect, collVector)) return true;
-	if (reward != nullptr) {
+	/*if (reward != nullptr) {
 		reward->collides(paddle->getRect());
-	}
+	}*/
 	return false;
 }
+Paddle* Game:: getPaddle() {
+	return paddle;
+}
+
 void Game::spawnReward(Vector2D coord) {
 	srand(time(NULL));
 	int type = rand() % 4;
-	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type);
+	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type, this);
 	objects.push_back(reward);
 }
 void Game::rellenaVector() {
@@ -138,9 +142,12 @@ void Game::rewardMasNivel() {
 	}*/
 }
 void Game::destruyeReward() {
-
+	objects.pop_back();
+	delete(reward);
+	reward = nullptr;
 }
 void Game::reset() {
+
 }
 void Game::acortar() {
 

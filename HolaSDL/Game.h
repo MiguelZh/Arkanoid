@@ -11,7 +11,7 @@
 #include "Texture.h"
 #include "Vector2D.h"
 #include "Wall.h"
-#include"Reward.h"
+#include "Reward.h"
 #include <time.h>
 #include <stdlib.h>
 #include <string>
@@ -64,6 +64,7 @@ public:
 	void reset();
 	void alargar();
 	void acortar();
+	Paddle *getPaddle();
 
 };
 #endif

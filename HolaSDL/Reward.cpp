@@ -18,6 +18,11 @@ void Reward::update() {
 		game->destruyeReward();
 	}
 	coord = coord + velocidad;
+
+	if (SDL_HasIntersection( &(game->getPaddle()) ->getRect(), &getRect())) {
+		TipodeRecompensa();
+		game->destruyeReward();
+	}
 }	
 void Reward::TipodeRecompensa() {
 	game->reset();
@@ -37,10 +42,10 @@ void Reward::TipodeRecompensa() {
 		break;
 	}
 }
-bool Reward::collides(SDL_Rect& paddleRect) {
+/*bool Reward::collides(SDL_Rect& paddleRect) {
 	if (SDL_HasIntersection(&paddleRect, &getRect())) {
 		TipodeRecompensa();
 		return true;
 	}
 	return false;
-}
+}*/

@@ -14,10 +14,10 @@ using namespace std;
 			 switch (E.key.keysym.sym)
 			 {
 			 case SDLK_RIGHT:
-				 modificaPos(20,true);
+				 modificaPos(1,true);
 				 break;
 			 case SDLK_LEFT:
-				 modificaPos(20,false);
+				 modificaPos(1,false);
 				 break;
 			 default: modificaPos(0,true);
 				 break;
