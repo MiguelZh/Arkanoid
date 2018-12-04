@@ -22,13 +22,15 @@ typedef unsigned int uint;
 
 const uint WIN_WIDTH = 800;
 const uint WIN_HEIGHT = 600;
-const uint NUM_TEXTURES = 7;
-const uint FRAME_RATE = 6;
+const uint NUM_TEXTURES = 6;
+const uint FRAME_RATE = 10;
 
 class Reward;
 class BlocksMap;
 class Game {
 private:
+	const enum textureName { blocksMapText, rewardText, sideWallText, topWallText, paddleText, ballText };
+
 	Vector2D velocidad = Vector2D(1, -1);
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;

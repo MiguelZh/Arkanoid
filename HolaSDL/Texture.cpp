@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Texture::liberar() {
+void Texture::clear() {
 	SDL_DestroyTexture(texture);
 	texture = nullptr;
 	w = h = 0;
@@ -13,7 +13,7 @@ void Texture::liberar() {
 void Texture::load(string filename, uint nRows, uint nCols) {
 	SDL_Surface* tempSurface = IMG_Load(filename.c_str());
 	if (tempSurface == nullptr) throw "Error loading surface from " + filename;
-	liberar();
+	clear();
 	texture = SDL_CreateTextureFromSurface(renderer, tempSurface);
 	if (texture == nullptr) throw "Error loading texture from " + filename;
 	numRows = nRows;
@@ -34,11 +34,9 @@ void Texture::render(const SDL_Rect& destRect, SDL_RendererFlip flip) const {
 
 void Texture::renderFrame(const SDL_Rect& destRect, int row, int col, int angle, SDL_RendererFlip flip) const {
 	SDL_Rect srcRect;
-	int W, H;
-	SDL_QueryTexture(texture, nullptr, nullptr, &W, &H);
-	srcRect.x = W/3 * col; // /3 debido a que son 3 colores en una fila
-	srcRect.y = H/2 * row; // /2 por que son 2 columnas
-	srcRect.w = W/3;
-	srcRect.h = H/2;
+	srcRect.x = fw * col;
+	srcRect.y = fh * row;
+	srcRect.w = fw;
+	srcRect.h = fh;
 	SDL_RenderCopyEx(renderer, texture, &srcRect, &destRect, angle, 0, flip);
 }

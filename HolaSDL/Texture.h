@@ -25,8 +25,8 @@ private:
 public:
 	Texture(SDL_Renderer* r) : renderer(r) {};
 	Texture(SDL_Renderer* r, string filename, uint numRows = 1, uint numCols = 1) : renderer(r) { load(filename, numRows, numCols); };
-	~Texture() { liberar(); };
-	void liberar();
+	~Texture() {clear(); };
+	void clear();
 
 	int getW() const { return w; };
 	int getH() const { return h; };

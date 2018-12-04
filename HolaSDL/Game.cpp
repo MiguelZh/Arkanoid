@@ -17,40 +17,37 @@ Game::Game() {
 	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
 
 
-	string nombre [7]= {"ball","bricks","paddle","topside","side","rewards","ArkanoidAll"}; // nombre de las imagenes
-		for (uint i = 0; i < NUM_TEXTURES; i++) // array strings direcciones
-		{
-			textures[i] = new Texture(renderer); //
-			try
-			{
-				textures[i]->load("..//images//" + nombre[i] + ".png");
-			}
-			catch (string s) {
-				s = "no se encontro la imagen";
-				throw s;
-			}
-			
+	string nombre [NUM_TEXTURES]= { "..\\images\\bricks.png", "..\\images\\rewards.png", "..\\images\\side.png",
+		"..\\images\\topside.png", "..\\images\\paddle.png", "..\\images\\ball.png" }; // nombre de las imagenes
+
+		textures[blocksMapText] = new Texture(renderer);
+		textures[blocksMapText]->load(nombre[blocksMapText], 2, 3);
+		textures[rewardText] = new Texture(renderer);
+		textures[rewardText]->load(nombre[rewardText], 10, 8);
+		for (int i = 2; i < NUM_TEXTURES; i++) {
+			textures[i] = new Texture(renderer);
+			textures[i]->load(nombre[i], 1, 1);
 		}
 	// WallTop
-	wallTop = new Wall(WIN_WIDTH+30, 15, Vector2D(-15,0), textures[3], "Top");
+	wallTop = new Wall(WIN_WIDTH+30, 15, Vector2D(-15,0), textures[topWallText], "Top");
 	//WallDer
 	double xIzq = WIN_WIDTH - 18, yIzq = 0;
 	Vector2D vectorWallIzq(xIzq, yIzq);
-	wallDer = new Wall(15, WIN_HEIGHT, Vector2D(WIN_WIDTH-15,0), textures[4], "Right");
+	wallDer = new Wall(15, WIN_HEIGHT, Vector2D(WIN_WIDTH-15,0), textures[sideWallText], "Right");
 	//WallIzq
-	wallIzq = new Wall(15, WIN_HEIGHT, Vector2D(0,0), textures[4], "Left");
+	wallIzq = new Wall(15, WIN_HEIGHT, Vector2D(0,0), textures[sideWallText], "Left");
 	//paddle
 	double xP = 370, yP = 550;
 	Vector2D vectorPaddle(xP, yP);
-	paddle = new Paddle(75, 15, vectorPaddle, textures[2], velocidad);
+	paddle = new Paddle(75, 15, vectorPaddle, textures[paddleText], velocidad);
 	//bola
 	double xB = 390, yB = 500;
 	Vector2D vectorBola(xB, yB);
 	//bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
-	bola = new Ball(20, 20, vectorBola, textures[0], velocidad, this);
+	bola = new Ball(20, 20, vectorBola, textures[ballText], velocidad, this);
 	//blocksmap
 	//mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
-	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[1]);
+	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[blocksMapText]);
 	mapa->LeerFichero(niveles[0]);
 	nivelActual++;
 	rellenaVector();
@@ -123,7 +120,7 @@ bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2
 void Game::spawnReward(Vector2D coord) {
 	srand(time(NULL));
 	int type = rand() % 4;
-	reward = new Reward(50, 30, coord, textures[5], Vector2D(0, 2),type);
+	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type);
 	objects.push_back(reward);
 }
 void Game::rellenaVector() {
@@ -135,6 +132,6 @@ void Game::rellenaVector() {
 }
 void Game::rewardMasNivel() {
 	delete mapa;
-	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[1]);
+	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[blocksMapText]);
 	mapa->LeerFichero(niveles[nivelActual]);
 }

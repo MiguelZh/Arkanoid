@@ -12,7 +12,9 @@ private:
 	SDL_Event E; uint width = 0;
 public:
 	Paddle(int ancho, int alto, Vector2D coord, Texture * textura, Vector2D vel) :
-		MovingObject(ancho, alto, coord, textura, vel) { width = ancho; }
+		MovingObject(ancho, alto, coord, textura, vel) {
+		width = ancho;
+	}
 
 	void modificaPos(int num,bool dir);
 	void handleEvents(SDL_Event &E);
