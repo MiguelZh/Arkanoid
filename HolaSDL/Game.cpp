@@ -135,3 +135,6 @@ void Game::rewardMasNivel() {
 	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[blocksMapText]);
 	mapa->LeerFichero(niveles[nivelActual]);
 }
+void Game::destruyeReward() {
+
+}

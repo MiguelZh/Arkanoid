@@ -13,14 +13,17 @@ void Reward::render() {
 	}
 }
 void Reward::update() {
-	/*if (coord.getY() > 600) { 
-		game->
-	}*/
+	if (coord.getY() > 600) { 
+	game->destruyeReward();
+	}
+	if (SDL_HasIntersection(&paddle->getRect(), &getRect())) { //comenta esto si no quieres tener el error
+		TipodeRecompensa();
+	}
 	coord = coord + velocidad;
-}
-void Reward::Tipo(uint type) {
+}	
+void Reward::TipodeRecompensa() {
 	paddle->reset();
-	switch (type)
+	switch (rewardT)
 	{
 	case 0: // nuevo nv
 		game->rewardMasNivel();
@@ -35,11 +38,4 @@ void Reward::Tipo(uint type) {
 		bola->masVida();
 		break;
 	}
-}
-bool Reward::collides(SDL_Rect PaddleRect) {
-	if (SDL_HasIntersection(&PaddleRect, &getRect())) {
-		Tipo(rewardT);
-		return true;
-	}
-	return false;
 }

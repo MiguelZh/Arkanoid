@@ -14,6 +14,5 @@ public:
 	~Reward() { game = nullptr; }
 	void render();
 	void update(); // debatir un update que llame a otro update del padre para que sea mas eficiente(posterior)
-	void Tipo(uint type);
-	bool collides(SDL_Rect PaddleRect);
+	void TipodeRecompensa();
 };

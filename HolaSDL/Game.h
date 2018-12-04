@@ -59,5 +59,6 @@ public:
 	void spawnReward(Vector2D coord);
 	void rellenaVector();
 	void rewardMasNivel();
+	void destruyeReward();
 };
 #endif
