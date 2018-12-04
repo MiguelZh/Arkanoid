@@ -7,6 +7,7 @@
 #include "math.h"
 #include <iostream>
 #include "ArkanoidObject.h"
+#include "checkML.h"
 class Wall : public ArkanoidObject {
 private:
 	string muro;

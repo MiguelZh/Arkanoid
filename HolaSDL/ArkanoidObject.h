@@ -4,6 +4,7 @@
 #include "Vector2D.h"
 #include "math.h"
 #include <fstream>
+#include "checkML.h"
 class ArkanoidObject: public GameObject
 {
 public:
@@ -17,6 +18,7 @@ public:
 	void renderFrame(uint row, uint col);
 	SDL_Rect getRect();
 	uint getW() { return w; }
+	void setW(uint ancho) { w = ancho; }
 	uint getH() { return h; }
 	uint getX() { return coord.getX(); }
 	uint getY() { return coord.getY(); }

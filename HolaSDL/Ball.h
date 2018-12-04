@@ -6,15 +6,15 @@
 #include "math.h"
 #include <iostream>
 #include"MovingObject.h"
+#include "checkML.h"
 class Game;
 class Ball : public MovingObject{
 private:
-	Game * game; int vidas = 3;
+	Game * game;
 public:
 	Ball(uint ancho, uint alto,Vector2D coord, Texture * textura, Vector2D vel, Game * g) :
 		MovingObject(ancho,alto,coord,textura,vel), game(g) {}
 	void update();
 	void resetBall();
-	void nuevoNv();
-	void masVida() { vidas++; };
+	void nuevoNv();	
 };

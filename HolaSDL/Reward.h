@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "Paddle.h"
 #include "Ball.h"
+#include "checkML.h"
+
 class Game;
 class Reward :public MovingObject {
 protected:

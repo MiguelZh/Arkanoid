@@ -19,7 +19,7 @@ void Ball::update() {
 		velocidad = velocidad - (collVector * (2 * (velocidad*collVector)));	
 		coord = prevPos + velocidad;
 	}
-	if (coord.getY() > 600 && vidas > 0)
+	if (coord.getY() > 600 && game->getVidas() > 0)
 	{
 		resetBall();
 	}
@@ -27,7 +27,7 @@ void Ball::update() {
 }
 void Ball::resetBall() {
 		coord = { 390,450 };
-		vidas--;
+		game->menosVida();
 }
 void Ball::nuevoNv() {
 	coord = { 390,450 };

@@ -109,9 +109,6 @@ bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2
 	if (wallIzq->collides(destRect, collVector)) return true;
 	if (wallTop->collides(destRect, collVector)) return true;
 	if (paddle->collides(destRect, collVector)) return true;
-	/*if (reward != nullptr) {
-		reward->collides(paddle->getRect());
-	}*/
 	return false;
 }
 Paddle* Game:: getPaddle() {
@@ -132,14 +129,14 @@ void Game::rellenaVector() {
 	objects.push_back(wallIzq);
 }
 void Game::rewardMasNivel() {
-	/*if (nivelActual < 3) {
+	if (nivelActual < 3) {
 		uint width = mapa->getW();
 		uint height = mapa->getH();
 		delete mapa;
 		mapa = new BlocksMap(width, height, textures[blocksMapText]);
 		mapa->LeerFichero(niveles[nivelActual]);
 		nivelActual++;
-	}*/
+	}
 }
 void Game::destruyeReward() {
 	objects.pop_back();
@@ -147,11 +144,22 @@ void Game::destruyeReward() {
 	reward = nullptr;
 }
 void Game::reset() {
-
+	paddle->setW(75);
 }
 void Game::acortar() {
-
+	reset();
+	paddle->setW(paddle->getW()/1.5);
 }
 void Game::alargar() {
-
+	reset();
+	paddle->setW(paddle->getW()*2);
+}
+void Game::masVida() {
+	vidas++;
+}
+void Game::menosVida() {
+	vidas--;
+}
+int Game::getVidas() {
+	return vidas;
 }

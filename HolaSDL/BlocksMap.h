@@ -6,6 +6,7 @@
 #include <iostream>
 #include "ArkanoidObject.h"
 #include "Game.h"
+#include "checkML.h"
 
 using namespace std;
 class BlocksMap:public ArkanoidObject{

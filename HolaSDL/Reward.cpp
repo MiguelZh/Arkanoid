@@ -17,15 +17,15 @@ void Reward::update() {
 	{ 
 		game->destruyeReward();
 	}
-	coord = coord + velocidad;
 
-	if (SDL_HasIntersection( &(game->getPaddle()) ->getRect(), &getRect())) {
+	else if (SDL_HasIntersection( &(game->getPaddle()) ->getRect(), &getRect())) {
 		TipodeRecompensa();
 		game->destruyeReward();
 	}
+	coord = coord + velocidad;
 }	
 void Reward::TipodeRecompensa() {
-	game->reset();
+	
 	switch (rewardT)
 	{
 	case 0: // nuevo nv
@@ -37,8 +37,8 @@ void Reward::TipodeRecompensa() {
 	case 3: // acortar
 		game->acortar();
 		break;
-	case 4: // vida++
-		bola->masVida();
+	case 2: // vida++
+		game->masVida();
 		break;
 	}
 }

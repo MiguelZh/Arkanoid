@@ -7,6 +7,8 @@
 #include "math.h"
 #include <iostream>
 #include "MovingObject.h"
+#include "checkML.h"
+
 class Paddle:public MovingObject {
 private:
 	SDL_Event E; uint width = 0; SDL_Rect Ini;

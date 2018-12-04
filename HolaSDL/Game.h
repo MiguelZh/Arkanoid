@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>;
+#include "checkML.h"
 using namespace std;
 
 typedef unsigned int uint;
@@ -49,6 +50,8 @@ private:
 	uint nivelActual = 0;
 	uint paddleWidth = 0;
 
+	int vidas = 3;
+
 public:
 	Game();
 	~Game();
@@ -64,6 +67,9 @@ public:
 	void reset();
 	void alargar();
 	void acortar();
+	void masVida();
+	void menosVida();
+	int getVidas();
 	Paddle *getPaddle();
 
 };
