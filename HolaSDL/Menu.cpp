@@ -1,5 +1,6 @@
 #include"Menu.h"
 #include"Game.h"
+#include"MovingObject.h"
 Menu::Menu() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	window = SDL_CreateWindow("Hola", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -66,7 +67,11 @@ void Menu::handleEvents() {
 			exit = true;
 		}
 		if (x > titleRect.w / 2) {
-			MovingObject::loadFromFile("xd");
+			cout << "nombre del archivo que quiere cargar";
+			string filename;
+			cin >> filename;
+			Game game(filename);
+			game.run();
 		}
 	}
 }

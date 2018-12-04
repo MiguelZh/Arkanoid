@@ -54,6 +54,7 @@ private:
 
 public:
 	Game();
+	Game(string filename);
 	~Game();
 	void run();
 	void render() const;

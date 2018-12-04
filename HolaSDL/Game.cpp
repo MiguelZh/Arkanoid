@@ -8,6 +8,51 @@
 
 
 using namespace std;
+Game::Game(string filename) {
+
+	SDL_Init(SDL_INIT_EVERYTHING);
+	window = SDL_CreateWindow("Hola", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+		WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (window == nullptr || renderer == nullptr) throw "Error loading the SDL window or renderer";
+	string nombre[NUM_TEXTURES] = { "..\\images\\bricks.png", "..\\images\\rewards.png", "..\\images\\side.png",
+			"..\\images\\topside.png", "..\\images\\paddle.png", "..\\images\\ball.png" }; // nombre de las imagenes
+
+
+	textures[blocksMapText] = new Texture(renderer);
+	textures[blocksMapText]->load(nombre[blocksMapText], 2, 3);
+	textures[rewardText] = new Texture(renderer);
+	textures[rewardText]->load(nombre[rewardText], 10, 8);
+	for (int i = 2; i < NUM_TEXTURES; i++) {
+		textures[i] = new Texture(renderer);
+		textures[i]->load(nombre[i], 1, 1);
+	}
+	ifstream file;
+	file.open("..\\saves\\" + filename + ".txt");
+	/*ArkanoidObject * o = new ArkanoidObject();
+	o->loadFromFile(file);*/  // duda como hacer loadFromFile desde el padre
+	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[blocksMapText]);
+	mapa->LeerFichero("..\\saves\\" + filename + ".txt", true);
+	int a, b;
+	file >> a; file >> b;
+	velocidad = {(double) a ,(double)b };
+	file >> a; file >> b;
+	int c, d; file >> c; file >> d;
+	paddle = new Paddle(c, d, { (double)a,(double)b }, textures[paddleText], velocidad);
+	file >> a; file >> b;
+	velocidad = { (double)a ,(double)b };
+	file >> a; file >> b;
+	file >> c; file >> d;
+	bola = new Ball(c, d, { (double)a,(double)b }, textures[ballText], {1,1}, this);
+	file >> a; file >> b; file >> c; file >> d;
+	wallTop = new Wall(c, d, { (double)a,(double)b }, textures[topWallText], "Top");
+	file >> a; file >> b; file >> c; file >> d;
+	wallDer = new Wall(c, d, { (double)a,(double)b }, textures[sideWallText], "Right");
+	file >> a; file >> b; file >> c; file >> d;
+	wallIzq = new Wall(c, d, { (double)a,(double)b }, textures[sideWallText], "Left");
+	nivelActual++;
+	rellenaVector();
+}
 Game::Game() {
 	
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -46,7 +91,7 @@ Game::Game() {
 	bola = new Ball(20, 20, vectorBola, textures[ballText], velocidad, this);
 	//blocksmap
 	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[blocksMapText]);
-	mapa->LeerFichero(niveles[0]);
+	mapa->LeerFichero(niveles[0],false);
 	nivelActual++;
 	rellenaVector();
 }
@@ -79,7 +124,7 @@ void Game::update() {
 	if (reward != nullptr) { reward->update(); }
 	bola->update();
 	if (mapa->pasoNivel()&& nivelActual<=2) {
-		mapa->LeerFichero(niveles[nivelActual]);
+		mapa->LeerFichero(niveles[nivelActual],false);
 		bola->nuevoNv();
 		nivelActual++;
 	}
@@ -99,6 +144,14 @@ void Game::handleEvents() {
 	while (SDL_PollEvent(&event) && !exit) {
 		if (event.type == SDL_QUIT) exit = true;
 		paddle->handleEvents(event);
+		if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
+			if (event.key.keysym.sym == SDLK_s) {
+				saveGame();
+			}
+			if (event.key.keysym.sym == SDLK_ESCAPE) {
+				exit = true;
+			}
+		}
 	}
 }
 bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
@@ -132,7 +185,7 @@ void Game::rewardMasNivel() {
 		uint height = mapa->getH();
 		delete mapa;
 		mapa = new BlocksMap(width, height, textures[blocksMapText]);
-		mapa->LeerFichero(niveles[nivelActual]);
+		mapa->LeerFichero(niveles[nivelActual],false);
 		nivelActual++;
 	}
 }
@@ -161,3 +214,29 @@ void Game::menosVida() {
 int Game::getVidas() {
 	return vidas;
 }
+void Game::saveGame() {
+	system("cls");
+	cout << "Escribe el nombre del archivo: " << endl;
+	string nombre;
+	cin >> nombre;
+	string filename = "..\\saves\\" + nombre + ".txt";
+	ofstream file(filename, ofstream::trunc); // borra todo lo que ya este guardado, si existe un archivo igual
+	// tamaño paddle, bola,walltop,wallder,wallizq
+	for (ArkanoidObject*n :objects) {
+		n->saveToFile(file);
+	}
+	// filas columnas del mapa
+	int i = mapa->getFilas();
+	int j = mapa->getColumnas();
+	file << i << " " << j << " " << endl;
+	//mapa
+	for (int x = 0; x < i; x++) {
+		for (int y = 0; y < j;y++) {
+			file << mapa->bloqueConcreto(y,x) << " ";
+		}
+		file << endl;
+	}
+	file.close(); 
+	exit = true;
+}
+

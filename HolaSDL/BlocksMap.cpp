@@ -10,12 +10,17 @@
 #include <stdlib.h>
 using namespace std;
 
-int fila = 0, columna = 0;
-void BlocksMap::LeerFichero(string filename) {
+void BlocksMap::LeerFichero(string filename,bool load) {
 	ifstream lectura; uint color; // x e y(filas y columnas)
 	lectura.open(filename);
 	if (!lectura.is_open()) throw "No existe el fichero";
+	int aux;
+	if (load == true) {
+		for (int i = 0; i < 24; i++) {
 
+			lectura >> aux;
+		}
+	}
 		lectura >> fila; // row
 		lectura >> columna; // col
 		numBloques = 0;
@@ -32,7 +37,6 @@ void BlocksMap::LeerFichero(string filename) {
 			for (uint j = 0; j < columna; j++) {
 
 				Vector2D pos(margen + j * cellWAux, margen + i * cellH);
-				//cellWAux += cellW;
 				lectura >> color;
 				blocks[j][i] = new Block(color, cellW, cellH, pos, textura, i, j);
 				if (color != 0)
@@ -186,4 +190,10 @@ bool BlocksMap::pasoNivel() {
 		finish = true;
 
 	return finish;
+}
+int BlocksMap::bloqueConcreto(int row, int col) {
+	if (blocks[row][col] != nullptr) {
+		return blocks[row][col]->getColor();
+	}
+	else return 0;
 }

@@ -13,7 +13,7 @@ void MovingObject::loadFromFile(ifstream& file) {
 }
 
 void MovingObject::saveToFile(ofstream& file) {
-	file << velocidad.getX() << " ";
-	file << velocidad.getY() << " ";
+	file << (int)velocidad.getX() << " ";
+	file << (int)velocidad.getY() << " ";
 	ArkanoidObject::saveToFile(file);
 }

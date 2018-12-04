@@ -28,8 +28,8 @@ void ArkanoidObject::loadFromFile(ifstream& file) {
 	h = height;
 }
 void ArkanoidObject::saveToFile(ofstream& file) {
-	file << coord.getX() << " ";
-	file << coord.getY() << " ";
-	file << w << " ";
-	file << h << endl;
+	file << (int)coord.getX() << " ";
+	file << (int)coord.getY() << " ";
+	file << (int)w << " ";
+	file << (int)h << endl;
 }
