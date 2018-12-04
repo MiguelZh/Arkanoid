@@ -9,13 +9,16 @@
 #include "MovingObject.h"
 class Paddle:public MovingObject {
 private:
-	SDL_Event E;
+	SDL_Event E; uint width = 0;
 public:
-	Paddle(int ancho, int alto,Vector2D coord, Texture * textura,Vector2D vel):
-		MovingObject(ancho,alto,coord,textura,vel) {}
+	Paddle(int ancho, int alto, Vector2D coord, Texture * textura, Vector2D vel) :
+		MovingObject(ancho, alto, coord, textura, vel) { width = ancho; }
 
 	void modificaPos(int num,bool dir);
 	void handleEvents(SDL_Event &E);
 	bool collides(const SDL_Rect destRect, Vector2D &collVector);
 	Vector2D ballhitPaddle(const SDL_Rect * ballrect);
+	void reset();
+	void alargar();
+	void acortar();
 };

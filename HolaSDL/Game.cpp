@@ -42,7 +42,6 @@ Game::Game() {
 	//paddle
 	double xP = 370, yP = 550;
 	Vector2D vectorPaddle(xP, yP);
-	//paddle = new Paddle(textures[2], vectorPaddle, 70, 20);
 	paddle = new Paddle(75, 15, vectorPaddle, textures[2], velocidad);
 	//bola
 	double xB = 390, yB = 500;
@@ -53,6 +52,7 @@ Game::Game() {
 	//mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
 	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[1]);
 	mapa->LeerFichero(niveles[0]);
+	nivelActual++;
 	rellenaVector();
 }
 
@@ -81,12 +81,13 @@ void Game::run() {
 }
 
 void Game::update() {
-	int i= 1;
+
+	if (reward != nullptr) { reward->update(); }
 	bola->update();
-	if (mapa->pasoNivel()&& i<=2) {
-		mapa->LeerFichero(niveles[i]);
+	if (mapa->pasoNivel()&& nivelActual<=2) {
+		mapa->LeerFichero(niveles[nivelActual]);
 		bola->nuevoNv();
-		i++;
+		nivelActual++;
 	}
 }
 
@@ -96,13 +97,12 @@ void Game::render() const {
 	wallDer->render();
 	wallIzq->render();
 	paddle->render();
-	bola->render();
-	mapa->render();*/
+	bola->render();*/
+	mapa->render();
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->render();
 	}
-	SDL_RenderPresent(renderer);
-	
+	SDL_RenderPresent(renderer);	
 }
 
 void Game::handleEvents() {
@@ -113,19 +113,18 @@ void Game::handleEvents() {
 	}
 }
 bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
-
 	if(mapa->detectCollision(destRect,collVector,vel,this)) return true;
 	if (wallDer->collides(destRect, collVector)) return true;
 	if (wallIzq->collides(destRect, collVector)) return true;
 	if (wallTop->collides(destRect, collVector)) return true;
-	if (paddle->collides(destRect, collVector)) return true;
-
+	if (paddle->collides(destRect, collVector)) return true;	
 	return false;
 }
 void Game::spawnReward(Vector2D coord) {
-	srand(NULL);
+	srand(time(NULL));
 	int type = rand() % 4;
 	reward = new Reward(50, 30, coord, textures[5], Vector2D(0, 2),type);
+	objects.push_back(reward);
 }
 void Game::rellenaVector() {
 	objects.push_back(paddle);
@@ -133,5 +132,9 @@ void Game::rellenaVector() {
 	objects.push_back(wallTop);
 	objects.push_back(wallDer);
 	objects.push_back(wallIzq);
-	objects.push_back(mapa);
+}
+void Game::rewardMasNivel() {
+	delete mapa;
+	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[1]);
+	mapa->LeerFichero(niveles[nivelActual]);
 }

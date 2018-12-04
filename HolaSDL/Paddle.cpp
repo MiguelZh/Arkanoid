@@ -65,3 +65,12 @@ using namespace std;
 	// vectorCol = { 0,-1 };
 	 return vectorCol;
  }
+ void Paddle::reset() {
+	 w = width;  // ?
+ }
+ void Paddle::acortar() {
+	 w = width / 2;
+ }
+ void Paddle::alargar() {
+	 w = width + width / 2;
+ }

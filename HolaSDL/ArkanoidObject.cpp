@@ -1,7 +1,6 @@
 #include"ArkanoidObject.h"
 
 ArkanoidObject::~ArkanoidObject(){}
-
 SDL_Rect  ArkanoidObject::getRect() {
 	SDL_Rect destRect;
 	destRect.x = coord.getX();

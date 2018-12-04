@@ -6,7 +6,8 @@
 #include "BlocksMap.h"
 #include <iostream>
 #include <fstream>
-
+#include <time.h>
+#include <stdlib.h>
 using namespace std;
 
 int fila = 0, columna = 0;
@@ -129,14 +130,17 @@ bool BlocksMap::detectCollision(const SDL_Rect destRect, Vector2D &collVector, c
 		Block* block = collides(destRect, vel, collVector);
 		if (block != nullptr) {
 			if (block->getColor() != 0) {
-				g->spawnReward(coord); // poner random aqui
+				srand(time(NULL));
+				int probabilidad = rand() % 10+1;
+				if (probabilidad < 5) {
+					g->spawnReward(Vector2D(destRect.x, destRect.y)); // poner random aqui
+				}
 				ballHitBlock(block);
 				puntuacion();
 				return true;
 			}
 		}
 	}
-
 }
 
  /* Devuelve el puntero al bloque del mapa de bloques al que pertenece el punto p.

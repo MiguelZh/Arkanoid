@@ -13,6 +13,7 @@
 #include "Wall.h"
 #include"Reward.h"
 #include <time.h>
+#include <stdlib.h>
 #include <string>
 #include <vector>;
 using namespace std;
@@ -24,6 +25,7 @@ const uint WIN_HEIGHT = 600;
 const uint NUM_TEXTURES = 7;
 const uint FRAME_RATE = 6;
 
+class Reward;
 class BlocksMap;
 class Game {
 private:
@@ -42,6 +44,7 @@ private:
 	Texture* textures[NUM_TEXTURES];
 	string niveles[3] = { "..//maps//level01.ark","..//maps//level02.ark","..//maps//level03.ark" };
 	vector <ArkanoidObject*> objects;
+	uint nivelActual = 0;
 
 public:
 	Game();
@@ -53,5 +56,6 @@ public:
 	bool collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel);
 	void spawnReward(Vector2D coord);
 	void rellenaVector();
+	void rewardMasNivel();
 };
 #endif

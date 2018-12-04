@@ -16,4 +16,5 @@ public:
 	void update();
 	void resetBall();
 	void nuevoNv();
+	void masVida() { vidas++; };
 };
