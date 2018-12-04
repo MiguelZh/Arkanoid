@@ -37,16 +37,14 @@ Game::Game() {
 	//WallIzq
 	wallIzq = new Wall(15, WIN_HEIGHT, Vector2D(0,0), textures[sideWallText], "Left");
 	//paddle
-	double xP = 370, yP = 550;
+	double xP = 370, yP = 550; paddleWidth = 75;
 	Vector2D vectorPaddle(xP, yP);
-	paddle = new Paddle(75, 15, vectorPaddle, textures[paddleText], velocidad);
+	paddle = new Paddle(paddleWidth , 15, vectorPaddle, textures[paddleText], velocidad);
 	//bola
 	double xB = 390, yB = 500;
 	Vector2D vectorBola(xB, yB);
-	//bola = new Ball(textures[0], vectorBola,velocidad, 20,20,this);
 	bola = new Ball(20, 20, vectorBola, textures[ballText], velocidad, this);
 	//blocksmap
-	//mapa = new BlocksMap(WIN_WIDTH,WIN_HEIGHT-200); // alto y ancho del bloque
 	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT , textures[blocksMapText]);
 	mapa->LeerFichero(niveles[0]);
 	nivelActual++;
@@ -90,11 +88,6 @@ void Game::update() {
 
 void Game::render() const {
 	SDL_RenderClear(renderer);
-	/*wallTop->render();
-	wallDer->render();
-	wallIzq->render();
-	paddle->render();
-	bola->render();*/
 	mapa->render();
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->render();
@@ -110,11 +103,15 @@ void Game::handleEvents() {
 	}
 }
 bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
+	SDL_Rect d = paddle->getRect();
 	if(mapa->detectCollision(destRect,collVector,vel,this)) return true;
 	if (wallDer->collides(destRect, collVector)) return true;
 	if (wallIzq->collides(destRect, collVector)) return true;
 	if (wallTop->collides(destRect, collVector)) return true;
-	if (paddle->collides(destRect, collVector)) return true;	
+	if (paddle->collides(destRect, collVector)) return true;
+	if (reward != nullptr) {
+		reward->collides(paddle->getRect());
+	}
 	return false;
 }
 void Game::spawnReward(Vector2D coord) {
@@ -131,10 +128,17 @@ void Game::rellenaVector() {
 	objects.push_back(wallIzq);
 }
 void Game::rewardMasNivel() {
-	delete mapa;
-	mapa = new BlocksMap(WIN_WIDTH, WIN_HEIGHT, textures[blocksMapText]);
 	mapa->LeerFichero(niveles[nivelActual]);
+	nivelActual++;
 }
 void Game::destruyeReward() {
+
+}
+void Game::reset() {
+}
+void Game::acortar() {
+
+}
+void Game::alargar() {
 
 }

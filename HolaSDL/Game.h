@@ -47,6 +47,7 @@ private:
 	string niveles[3] = { "..//maps//level01.ark","..//maps//level02.ark","..//maps//level03.ark" };
 	vector <ArkanoidObject*> objects;
 	uint nivelActual = 0;
+	uint paddleWidth = 0;
 
 public:
 	Game();
@@ -60,5 +61,9 @@ public:
 	void rellenaVector();
 	void rewardMasNivel();
 	void destruyeReward();
+	void reset();
+	void alargar();
+	void acortar();
+
 };
 #endif
