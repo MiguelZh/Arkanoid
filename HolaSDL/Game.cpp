@@ -128,8 +128,14 @@ void Game::rellenaVector() {
 	objects.push_back(wallIzq);
 }
 void Game::rewardMasNivel() {
-	mapa->LeerFichero(niveles[nivelActual]);
-	nivelActual++;
+	/*if (nivelActual < 3) {
+		uint width = mapa->getW();
+		uint height = mapa->getH();
+		delete mapa;
+		mapa = new BlocksMap(width, height, textures[blocksMapText]);
+		mapa->LeerFichero(niveles[nivelActual]);
+		nivelActual++;
+	}*/
 }
 void Game::destruyeReward() {
 
