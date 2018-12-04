@@ -63,7 +63,6 @@ Game::~Game() {
 }
 
 void Game::run() {
-	velocidad.normalize();
 	while (!exit) {
 		uint start = SDL_GetTicks();
 		handleEvents();
@@ -103,7 +102,6 @@ void Game::handleEvents() {
 	}
 }
 bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2D &vel) {
-	SDL_Rect d = paddle->getRect();
 	if(mapa->detectCollision(destRect,collVector,vel,this)) return true;
 	if (wallDer->collides(destRect, collVector)) return true;
 	if (wallIzq->collides(destRect, collVector)) return true;

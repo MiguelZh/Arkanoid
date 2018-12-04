@@ -63,6 +63,7 @@ void Menu::handleEvents() {
 		if (x < titleRect.w / 2) {
 			Game game;
 			game.run();
+			exit = true;
 		}
 	}
 }
