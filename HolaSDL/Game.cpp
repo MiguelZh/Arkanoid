@@ -120,8 +120,9 @@ void Game::run() {
 }
 
 void Game::update() {
-
-	if (reward != nullptr) { reward->update(); }
+	for (int i = 0; i < rewards.size(); i++) {
+		rewards[i]->update();
+	}
 	bola->update();
 	if (mapa->pasoNivel()&& nivelActual<=2) {
 		mapa->LeerFichero(niveles[nivelActual],false);
@@ -132,10 +133,14 @@ void Game::update() {
 
 void Game::render() const {
 	SDL_RenderClear(renderer);
+	for (int i = 0; i < rewards.size(); i++) {
+		rewards[i]->render();
+	}
 	mapa->render();
 	for (int i = 0; i < objects.size(); i++) {
 		objects[i]->render();
 	}
+
 	SDL_RenderPresent(renderer);	
 }
 
@@ -170,7 +175,7 @@ void Game::spawnReward(Vector2D coord) {
 	srand(time(NULL));
 	int type = rand() % 4;
 	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type, this);
-	objects.push_back(reward);
+	rewards.push_back(reward);
 }
 void Game::rellenaVector() {
 	objects.push_back(paddle);
@@ -190,7 +195,7 @@ void Game::rewardMasNivel() {
 	}
 }
 void Game::destruyeReward() {
-	objects.pop_back();
+	rewards.pop_back();
 	delete(reward);
 	reward = nullptr;
 }
