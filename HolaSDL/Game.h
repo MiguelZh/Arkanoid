@@ -61,9 +61,6 @@ public:
 	void rellenaVector();
 	void rewardMasNivel();
 	void destruyeReward();
-	void reset();
-	void alargar();
-	void acortar();
 
 };
 #endif

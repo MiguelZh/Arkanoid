@@ -9,16 +9,17 @@
 #include "MovingObject.h"
 class Paddle:public MovingObject {
 private:
-	SDL_Event E; uint width = 0; SDL_Rect Ini;
+	SDL_Event E; 
 public:
 	Paddle(int ancho, int alto, Vector2D coord, Texture * textura, Vector2D vel) :
-		MovingObject(ancho, alto, coord, textura, vel) {
-		Ini = getRect();
-	}
+		MovingObject(ancho, alto, coord, textura, vel) {			}
 
 	void modificaPos(int num,bool dir);
 	void handleEvents(SDL_Event &E);
 	bool collides(const SDL_Rect destRect, Vector2D &collVector);
 	Vector2D ballhitPaddle(const SDL_Rect * ballrect);
+	void reset();
+	void alargar();
+	void acortar();
 
 };

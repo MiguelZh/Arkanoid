@@ -90,4 +90,14 @@ using namespace std;
 	// vectorCol = { 0,-1 };
 	 return vectorCol;
  }
+ void Paddle::reset() {
+	 w = w - 30;
+ }
+ void Paddle::alargar() {
+	 w = this->w+30;
+ }
+ void Paddle::acortar() {
+	 w = this->w-30;
+ }
+
 

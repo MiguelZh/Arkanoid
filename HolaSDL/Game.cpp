@@ -63,7 +63,7 @@ Game::~Game() {
 }
 
 void Game::run() {
-	velocidad.normalize();
+	//velocidad.normalize();
 	while (!exit) {
 		uint start = SDL_GetTicks();
 		handleEvents();
@@ -117,7 +117,7 @@ bool Game::collides(const SDL_Rect destRect, Vector2D &collVector, const Vector2
 void Game::spawnReward(Vector2D coord) {
 	srand(time(NULL));
 	int type = rand() % 4;
-	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type);
+	reward = new Reward(50, 30, coord, textures[rewardText], Vector2D(0, 2),type,this);
 	objects.push_back(reward);
 }
 void Game::rellenaVector() {
@@ -139,12 +139,13 @@ void Game::rewardMasNivel() {
 }
 void Game::destruyeReward() {
 
+
 }
-void Game::reset() {
+/*void Game::reset() {
 }
 void Game::acortar() {
 
 }
 void Game::alargar() {
 
-}
+}*/

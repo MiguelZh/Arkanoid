@@ -20,17 +20,17 @@ void Reward::update() {
 	coord = coord + velocidad;
 }	
 void Reward::TipodeRecompensa() {
-	game->reset();
+	paddle->reset(); // devuelve el paddle al mismo tamaño, debido  a que ha tocado algun reward
 	switch (rewardT)
 	{
 	case 0: // nuevo nv
-		game->rewardMasNivel();
+		//game->rewardMasNivel();
 		break;
 	case 1: // alargar
-		game->alargar();
+		//paddle->alargar();
 		break;
 	case 3: // acortar
-		game->acortar();
+		//paddle->acortar();
 		break;
 	case 4: // vida++
 		bola->masVida();
