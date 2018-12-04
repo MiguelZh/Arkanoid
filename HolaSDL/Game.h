@@ -71,6 +71,6 @@ public:
 	void menosVida();
 	int getVidas();
 	Paddle *getPaddle();
-
+	void saveGame();
 };
 #endif

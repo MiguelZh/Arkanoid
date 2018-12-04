@@ -67,6 +67,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArkanoidError.cpp" />
     <ClCompile Include="ArkanoidObject.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Block.cpp" />
@@ -83,6 +84,7 @@
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArkanoidError.h" />
     <ClInclude Include="ArkanoidObject.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Block.h" />

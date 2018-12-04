@@ -17,5 +17,4 @@ public:
 	void render();
 	void update(); // debatir un update que llame a otro update del padre para que sea mas eficiente(posterior)
 	void TipodeRecompensa();
-	//bool collides(SDL_Rect& paddleRect);
 };

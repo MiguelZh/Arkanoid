@@ -2,6 +2,9 @@
 
 using namespace std;
 
+MovingObject::~MovingObject() {
+
+}
 void MovingObject::loadFromFile(ifstream& file) {
 	int vx, vy;
 	file >> vx >> vy;

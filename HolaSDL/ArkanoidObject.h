@@ -11,7 +11,7 @@ public:
 	ArkanoidObject(){}
 	ArkanoidObject(uint width,uint height, Vector2D coord , Texture * t):
 		w(width),h(height),coord(coord),textura(t){}
-	~ArkanoidObject();
+	virtual ~ArkanoidObject();
 	virtual void loadFromFile(ifstream& file);
 	virtual void saveToFile(ofstream & file);
 	void render();

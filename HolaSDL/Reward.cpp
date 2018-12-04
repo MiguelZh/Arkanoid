@@ -42,10 +42,4 @@ void Reward::TipodeRecompensa() {
 		break;
 	}
 }
-/*bool Reward::collides(SDL_Rect& paddleRect) {
-	if (SDL_HasIntersection(&paddleRect, &getRect())) {
-		TipodeRecompensa();
-		return true;
-	}
-	return false;
-}*/
+

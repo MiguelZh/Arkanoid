@@ -65,5 +65,8 @@ void Menu::handleEvents() {
 			game.run();
 			exit = true;
 		}
+		if (x > titleRect.w / 2) {
+			MovingObject::loadFromFile("xd");
+		}
 	}
 }

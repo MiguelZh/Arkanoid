@@ -1,6 +1,9 @@
 #include"ArkanoidObject.h"
 
-ArkanoidObject::~ArkanoidObject(){}
+ArkanoidObject::~ArkanoidObject()
+{
+	textura = nullptr;
+}
 SDL_Rect  ArkanoidObject::getRect() {
 	SDL_Rect destRect;
 	destRect.x = coord.getX();

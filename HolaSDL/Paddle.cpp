@@ -87,7 +87,6 @@ using namespace std;
 		 vectorCol = Vector2D(-4, 10);
 	 }
 	 vectorCol.normalize();
-	// vectorCol = { 0,-1 };
 	 return vectorCol;
  }
 

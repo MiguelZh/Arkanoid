@@ -9,7 +9,7 @@ public:
 	MovingObject(){}
 	MovingObject(uint width, uint height, Vector2D coord, Texture * t,Vector2D vel):
 		ArkanoidObject(width,height,coord,t),velocidad(vel){}
-	~MovingObject(){}
+	virtual ~MovingObject();
 
 	void loadFromFile(ifstream& file);
 	void saveToFile(ofstream& file); // guardan y cargan velocidad
