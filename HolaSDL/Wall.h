@@ -15,4 +15,5 @@ public:
 	Wall(uint ancho, uint alto, Vector2D coord, Texture * textura,string pos) :
 		ArkanoidObject(ancho,alto,coord,textura), muro(pos) {}
 	bool collides(const SDL_Rect destRect, Vector2D &collVector);
+	~Wall() { textura = nullptr; }
 };

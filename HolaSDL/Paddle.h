@@ -17,7 +17,7 @@ public:
 		MovingObject(ancho, alto, coord, textura, vel) {
 		Ini = getRect();
 	}
-
+	~Paddle(){ textura = nullptr; }
 	void modificaPos(int num,bool dir);
 	void handleEvents(SDL_Event &E);
 	bool collides(const SDL_Rect destRect, Vector2D &collVector);

@@ -14,6 +14,7 @@ private:
 public:
 	Vector2D();
 	Vector2D(double x, double y);
+	~Vector2D(){}
 	double getX() const;
 	double getY() const;
 	void normalize();
