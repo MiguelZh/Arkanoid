@@ -5,7 +5,6 @@
 
 class GameObject {
 	//~GameObject(){}
-	virtual void render() ;
-	virtual void update() ;
-	virtual void handleEvent() ;
+	virtual void render()=0 ;
+	virtual void update()=0 ;
 };

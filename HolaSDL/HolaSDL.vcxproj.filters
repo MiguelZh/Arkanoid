@@ -104,5 +104,8 @@
     <ClInclude Include="ArkanoidError.h">
       <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="FileError.h">
+      <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

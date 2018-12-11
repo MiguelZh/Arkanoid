@@ -14,7 +14,9 @@ public:
 	virtual ~ArkanoidObject();
 	virtual void loadFromFile(ifstream& file);
 	virtual void saveToFile(ofstream & file);
-	void render();
+	virtual void render();
+	virtual void update() {};
+	virtual void handleEvent() {};
 	void renderFrame(uint row, uint col);
 	SDL_Rect getRect();
 	uint getW() { return w; }

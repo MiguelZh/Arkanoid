@@ -14,7 +14,7 @@ void Ball::update() {
 	coord = coord + velocidad;
 	if (game->collides(destRect, collVector, velocidad)) { // llama al collides del game
 
-		velocidad.normalize();
+		//velocidad.normalize();
 
 		velocidad = velocidad - (collVector * (2 * (velocidad*collVector)));	
 		coord = prevPos + velocidad;

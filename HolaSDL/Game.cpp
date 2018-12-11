@@ -195,8 +195,9 @@ void Game::rewardMasNivel() {
 	}
 }
 void Game::destruyeReward() {
+	reward = rewards.back();
 	rewards.pop_back();
-	delete(reward);
+	delete reward;
 	reward = nullptr;
 }
 void Game::reset() {
