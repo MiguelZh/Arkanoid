@@ -75,3 +75,15 @@ void Menu::handleEvents() {
 		}
 	}
 }
+Menu::~Menu() {
+	delete titleTexture;
+	delete playTexture;
+	delete quitTexture;
+	delete loadTexture;
+	titleTexture = nullptr;
+	playTexture = nullptr;
+	quitTexture = nullptr;
+	loadTexture = nullptr;
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+}

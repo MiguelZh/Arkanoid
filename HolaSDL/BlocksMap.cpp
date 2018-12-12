@@ -65,7 +65,7 @@ void BlocksMap::render() const {
 		for (int j = 0; j < columna;j++) {
 			if (blocks[j][i] != nullptr) {
 				blocks[j][i]->render();
-			}
+			}		
 		}
 	}
 }

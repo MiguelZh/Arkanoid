@@ -193,6 +193,7 @@ void Game::rewardMasNivel() {
 		mapa->LeerFichero(niveles[nivelActual],false);
 		nivelActual++;
 	}
+	else exit = true;
 }
 void Game::destruyeReward() {
 	reward = rewards.back();
