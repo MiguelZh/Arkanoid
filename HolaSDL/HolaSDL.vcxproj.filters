@@ -60,9 +60,6 @@
     <ClCompile Include="ArkanoidError.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Texture.h">
@@ -108,12 +105,6 @@
       <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="FileError.h">
-      <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateMachine.h">
       <Filter>Archivos de código fuente\Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
